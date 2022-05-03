@@ -1,3 +1,5 @@
+import { addTask, getAllTasks } from "./utils/domFunctions.js";
+
 const db = [
     {
         id: 1,
@@ -24,6 +26,8 @@ const db = [
     },
 ];
 
+getAllTasks(db);
+
 // console.log(db[0].title);
 
 const form = document.querySelector('#addNewTask');
@@ -41,12 +45,16 @@ newTask.addEventListener('keyup', (e) => {
         if (!newTask.value) {
             alert('Digite uma nova tarefa, para adicionar');
         } else {
-            alert(newTask.value);
+            // alert(newTask.value);
 
             const d = new Date();
             const today = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
 
             db.push({ id: Number(db.length) + 1, title: newTask.value, done: false, dueDate: today });
+
+            document.querySelector('.tasks').innerHTML = "";
+            addTask(db, db.title);
+
             newTask.value = '';
             console.log(db);
         }
